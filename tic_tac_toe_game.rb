@@ -3,6 +3,9 @@
 # TicTacToeGame
 # is a ruby implementation of a tic tac toe game
 
+require_relative 'tic_tac_toe_game/board'
+require_relative 'tic_tac_toe_game/player'
+
 #----------------------------------------
 class TicTacToeGame
 
@@ -60,73 +63,6 @@ class TicTacToeGame
     # look up current player and move forward by one using modulus
     # This is okay for small N.
     @currentPlayer = @players[(@players.index(@currentPlayer) + 1) % @players.length]
-  end
-end
-
-#----------------------------------------
-class Board
-  attr_reader :boardState
-  attr_reader :emptySpace
-
-  def initialize
-    @emptySpace = '-'
-    @boardState = @emptySpace * 9
-    puts "Board initialized."
-  end
-  
-  def stringDraw
-    puts "board state = #{@boardState}"
-  end
-  
-  def screenDraw
-    print "\n"
-    i = 0
-    @boardState.split("").each do |mark|
-      print " "
-      print "#{mark}"
-      print " " 
-      if ((i % 3) != 2) 
-        print "|"
-      else
-        print "\n"
-        print "---+---+---\n" if i < 8
-      end
-      i += 1
-    end
-    print "\n"
-  end
-
-  def addMark(mark, position)
-    @boardState[position] = "#{mark}"
-  end
-
-  def allOpenPositions()
-    openPositions = []
-    i = 0
-    @boardState.split("").each do |mark|
-      if (mark == @emptySpace)
-        openPositions.push(i)
-      end
-      i += 1
-    end
-    return openPositions
-  end
-end
-
-#----------------------------------------
-class Player  
-
-  attr_reader :mark
-
-  def initialize(mark)
-    @mark = mark
-    puts "Player #{mark} initialized."
-  end
-
-  def chooseMove(board, winningCombos)
-    openPositions = board.allOpenPositions()
-    puts "Considering the following positions #{openPositions}."
-    openPositions[rand(openPositions.length)]
   end
 end
 
