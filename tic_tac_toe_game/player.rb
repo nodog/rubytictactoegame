@@ -15,16 +15,28 @@ class Player
     if move
       return move
     end
-    
+    # can I prevent a win   
     move = prevent_winning_move_if_necessary(open_positions, board, winning_combos)
     if move
       return move
     end
+    # can I set up a guaranteed win (two places to go next time)
+    #
+    # can I prevent a guaranteed win
 
+    # can I line up two in a row with an empty space?
     move = choose_probable_winning_move(open_positions, board, winning_combos)
     if move
       return move
     end
+
+    # can I prevent a probable vin
+    #
+    # can I create a potential win (one mare with two empty spaces)
+    #
+    # can I prevent a potential win
+    #
+    # can I move at all
 
     #choose random open position
     open_positions[rand(open_positions.length)]
