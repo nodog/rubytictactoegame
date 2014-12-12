@@ -19,7 +19,7 @@ class Board
       print " "
       print "#{mark}"
       print " " 
-      if ((i % 3) != 2) 
+      unless  (i % 3) == 2 
         print "|"
       else
         print "\n"
@@ -38,7 +38,7 @@ class Board
     open_positions = []
     i = 0
     @board_state.split("").each do |mark|
-      if (mark == @empty_space)
+      if mark == @empty_space
         open_positions.push(i)
       end
       i += 1
