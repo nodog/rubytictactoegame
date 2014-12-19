@@ -31,7 +31,10 @@ class Player
     end
 
     # can I prevent a probable vin
-    #
+    move = prevent_probable_winning_move(open_positions, board, winning_combos)
+    if move
+      return move
+    end
     # can I create a potential win (one mare with two empty spaces)
     #
     # can I prevent a potential win
@@ -46,7 +49,7 @@ class Player
     open_positions.each do |position|
       winning_combos.each do |combo|
         if combo.include? position then
-          if (2 == board.board_state.chars.values_at(*combo).count(@mark)) then
+          if (2 == board.board_state.chars.to_a.values_at(*combo).count(@mark)) then
             puts "Found a winning move for #{@mark}."
             return position
           end
@@ -60,7 +63,7 @@ class Player
     open_positions.each do |position|
       winning_combos.each do |combo|
         if combo.include? position then
-          if (2 == board.board_state.chars.values_at(*combo).reject{|c| c == @mark || c == '-'}.size) then
+          if (2 == board.board_state.chars.to_a.values_at(*combo).reject{|c| c == @mark || c == '-'}.size) then
             puts "Found a blocking move for #{@mark}."
             return position
           end
@@ -70,14 +73,28 @@ class Player
     nil
   end
 
-
   def choose_probable_winning_move(open_positions, board, winning_combos)
     open_positions.each do |position|
       winning_combos.each do |combo|
         if combo.include? position then
-          if (1 == board.board_state.chars.values_at(*combo).count(@mark)) \
-             && (2 == board.board_state.chars.values_at(*combo).count('-')) then
+          if (1 == board.board_state.chars.to_a.values_at(*combo).count(@mark)) \
+             && (2 == board.board_state.chars.to_a.values_at(*combo).count('-')) then
             puts "Found a probable winning move for #{@mark}."
+            return position
+          end
+        end
+      end
+    end
+    nil
+  end
+
+  def prevent_probable_winning_move(open_positions, board, winning_combos)
+    open_positions.each do |position|
+      winning_combos.each do |combo|
+        if combo.include? position then
+          if (1 == board.board_state.chars.to_a.values_at(*combo).reject{|c| c == @mark || c == '-'}.size) \
+             && (2 == board.board_state.chars.to_a.values_at(*combo).count('-')) then
+            puts "Blocked a probable winning move for #{@mark}."
             return position
           end
         end
