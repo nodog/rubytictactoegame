@@ -5,6 +5,8 @@
 
 require_relative 'tic_tac_toe_game/board'
 require_relative 'tic_tac_toe_game/player'
+require_relative 'tic_tac_toe_game/rule_based_player'
+require_relative 'tic_tac_toe_game/human_player'
 
 #----------------------------------------
 class TicTacToeGame
@@ -12,13 +14,13 @@ class TicTacToeGame
   def initialize
     @board = Board.new
     @board.screen_draw
-    @player_x = Player.new('X')
-    @player_o = Player.new('O')
+    @player_x = HumanPlayer.new('X')
+    @player_o = RuleBasedPlayer.new('O')
     @players = [@player_x, @player_o]
     @current_player = @player_x
     @game_over = false
     # winning combos listed with order preference
-    @winning_combos = [[4,0,8], [4,2,6], [0,2,1], [4,3,5], [6,8,7], [0,6,3], [4,1,7], [2,8,5]]
+    @winning_combos = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
     @move_count = 1
     puts "tic_tac_toe_game initialized."
   end
@@ -31,7 +33,7 @@ class TicTacToeGame
 
   def allow_one_move
     puts "current move is #{@move_count} and it is player #{@current_player.mark}'s turn."
-    @board.add_mark(@current_player.mark, @current_player.choose_move(@board, @winning_combos))
+    @board.add_mark(@current_player.mark, @current_player.choose_move(@board))
     @move_count += 1
     @board.screen_draw
     advance_player

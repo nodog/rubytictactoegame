@@ -34,6 +34,14 @@ class Board
     @board_state[position] = "#{mark}"
   end
 
+  def empty_board?()
+    if (9 == board_state.chars.to_a.count('-')) then
+      return true 
+    else
+      return nil
+    end
+  end
+
   def all_open_positions
     open_positions = []
     i = 0
