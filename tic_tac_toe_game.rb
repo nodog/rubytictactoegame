@@ -4,7 +4,6 @@
 # is a ruby implementation of a tic tac toe game
 
 require_relative 'tic_tac_toe_game/board'
-require_relative 'tic_tac_toe_game/player'
 require_relative 'tic_tac_toe_game/rule_based_player'
 require_relative 'tic_tac_toe_game/human_player'
 
@@ -19,7 +18,7 @@ class TicTacToeGame
     @players = [@player_x, @player_o]
     @current_player = @player_x
     @game_over = false
-    # winning combos listed with order preference
+    # winning combos 
     @winning_combos = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
     @move_count = 1
     puts "tic_tac_toe_game initialized."

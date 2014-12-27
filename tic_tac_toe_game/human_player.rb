@@ -1,7 +1,9 @@
-class HumanPlayer < Player  
+class HumanPlayer
+
+  attr_reader :mark
 
   def initialize(mark)
-    super(mark)
+    @mark = mark
     puts "Human Player #{mark} initialized."
   end
 
@@ -17,7 +19,6 @@ class HumanPlayer < Player
       print "Your move? > "
       human_move = gets.chomp
       puts "Your move was: >#{human_move}<"
-      #require 'pry'; binding.pry
     end
     return human_move.to_i
   end
