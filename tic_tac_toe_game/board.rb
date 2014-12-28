@@ -9,25 +9,25 @@ class Board
   end
   
   def string_draw
-    puts "board state = #{@board_state}"
+    "board state = #{@board_state}"
   end
   
-  def screen_draw
-    print "\n"
+  def pretty_board
+    board = "\n"
     i = 0
     @board_state.split("").each do |mark|
-      print " "
-      print "#{mark}"
-      print " " 
+      board << " "
+      board << "#{mark}"
+      board << " " 
       unless  (i % 3) == 2 
-        print "|"
+        board << "|"
       else
-        print "\n"
-        print "---+---+---\n" if i < 8
+        board << "\n"
+        board << "---+---+---\n" if i < 8
       end
       i += 1
     end
-    print "\n"
+    board << "\n"
   end
 
   def add_mark(mark, position)

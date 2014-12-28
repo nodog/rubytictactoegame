@@ -12,7 +12,7 @@ class TicTacToeGame
 
   def initialize
     @board = Board.new
-    @board.screen_draw
+    puts @board.pretty_board
     @player_x = HumanPlayer.new('X')
     @player_o = RuleBasedPlayer.new('O')
     @players = [@player_x, @player_o]
@@ -34,7 +34,7 @@ class TicTacToeGame
     puts "current move is #{@move_count} and it is player #{@current_player.mark}'s turn."
     @board.add_mark(@current_player.mark, @current_player.choose_move(@board))
     @move_count += 1
-    @board.screen_draw
+    puts @board.pretty_board
     advance_player
   end
 
