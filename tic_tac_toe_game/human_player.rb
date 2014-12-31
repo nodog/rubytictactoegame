@@ -23,7 +23,4 @@ class HumanPlayer
     return human_move.to_i
   end
 
-  def zmove(board)
-    return 0
-  end
 end

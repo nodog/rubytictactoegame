@@ -8,11 +8,10 @@ describe HumanPlayer do
   end
 
   it 'should choose a move like a human' do
-    stub_board = double :all_open_positions [0, 1]
+    stub_board = double :all_open_positions => [0, 1]
     a_player = HumanPlayer.new('m')
-    # this is wrong
-    #stub_IO = double :gets '0'
-    #a_player.choose_move(stub_board).should == 0
-    a_player.zmove(stub_board).should == 0
+    # hunh, the following line is magic to me. :P
+    a_player.stub(:gets) { "0\n"}
+    a_player.choose_move(stub_board).should == 0
   end
 end
