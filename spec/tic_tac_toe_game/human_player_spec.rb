@@ -8,10 +8,11 @@ describe HumanPlayer do
   end
 
   it 'chooses a move like a human' do
-    stub_board = instance_double("Board", :all_open_positions => [0, 1])
+    mock_board = instance_double("Board")
+    expect(mock_board).to receive(:all_open_positions).and_return([0, 1])
+
     a_player = HumanPlayer.new('m')
-    # hunh, the following line is magic to me. :P
-    allow(a_player).to receive(:gets) { "1\n"}
-    expect(a_player.choose_move(stub_board)).to eq(1)
+    expect(a_player).to receive(:gets) { "1\n"}
+    expect(a_player.choose_move(mock_board)).to eq(1)
   end
 end
