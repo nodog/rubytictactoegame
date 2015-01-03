@@ -1,15 +1,15 @@
 class Board
   attr_reader :board_state
-  attr_reader :empty_space
+  EMPTY_SPACE = '-'
+  EMPTY_BOARD = EMPTY_SPACE * 9
 
-  def initialize
-    @empty_space = '-'
-    @board_state = @empty_space * 9
-    puts "Board initialized."
+  def initialize(board_state = EMPTY_BOARD)
+    @board_state = board_state
+    #puts "Board initialized with board_state #{board_state}."
   end
   
   def string_draw
-    "board state = #{@board_state}"
+    puts "board state = #{@board_state}"
   end
   
   def pretty_board
@@ -34,6 +34,10 @@ class Board
     @board_state[position] = "#{mark}"
   end
 
+  def remove_mark(position)
+    @board_state[position] = EMPTY_SPACE
+  end
+
   def empty_board?()
     if (9 == board_state.chars.to_a.count('-')) then
       return true 
@@ -46,7 +50,7 @@ class Board
     open_positions = []
     i = 0
     @board_state.split("").each do |mark|
-      if mark == @empty_space
+      if mark == EMPTY_SPACE
         open_positions.push(i)
       end
       i += 1
