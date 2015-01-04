@@ -3,13 +3,13 @@ class Board
   EMPTY_SPACE = '-'
   EMPTY_BOARD = EMPTY_SPACE * 9
 
-  def initialize(board_state = EMPTY_BOARD)
-    @board_state = board_state
+  def initialize(a_board_state = String.new(EMPTY_BOARD))
+    @board_state = a_board_state
     #puts "Board initialized with board_state #{board_state}."
   end
   
   def string_draw
-    puts "board state = #{@board_state}"
+    "board state = #{@board_state}"
   end
   
   def pretty_board

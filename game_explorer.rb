@@ -33,8 +33,11 @@ class GameExplorer
 
   def generate_board_state_tree(a_board, hash_of_states, mark_1, mark_2)
 
+    dum_char = 'x'
     @count += 1
-    a_board.string_draw
+    puts a_board.string_draw
+    b_board = Board.new(a_board.board_state.tr(mark_1, dum_char).tr(mark_2, mark_1).tr(dum_char, mark_2))
+    puts b_board.string_draw
 
     # end state 
     if TicTacToeGame.is_finished(a_board.board_state)
