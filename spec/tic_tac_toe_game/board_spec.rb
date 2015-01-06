@@ -30,7 +30,7 @@ describe Board do
 
   it 'reports a non-empty board when empty' do
     @a_board.add_mark('m', 4)
-    expect(@a_board.empty_board?).to eq(nil)
+    expect(@a_board.empty_board?).to_not eq(true)
   end
 
   it 'creates the board state when requested' do

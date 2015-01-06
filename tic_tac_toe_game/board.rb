@@ -3,9 +3,8 @@ class Board
   EMPTY_SPACE = '-'
   EMPTY_BOARD = EMPTY_SPACE * 9
 
-  def initialize(a_board_state = String.new(EMPTY_BOARD))
+  def initialize(a_board_state = EMPTY_BOARD.dup)
     @board_state = a_board_state
-    #puts "Board initialized with board_state #{board_state}."
   end
   
   def string_draw
@@ -19,11 +18,11 @@ class Board
       board << " "
       board << "#{mark}"
       board << " " 
-      unless  (i % 3) == 2 
-        board << "|"
-      else
+      if (i % 3) == 2 
         board << "\n"
         board << "---+---+---\n" if i < 8
+      else
+        board << "|"
       end
       i += 1
     end
@@ -39,11 +38,7 @@ class Board
   end
 
   def empty_board?()
-    if (9 == board_state.chars.to_a.count('-')) then
-      return true 
-    else
-      return nil
-    end
+    9 == board_state.chars.to_a.count('-')
   end
 
   def all_open_positions
@@ -55,6 +50,6 @@ class Board
       end
       i += 1
     end
-    return open_positions
+    open_positions
   end
 end
