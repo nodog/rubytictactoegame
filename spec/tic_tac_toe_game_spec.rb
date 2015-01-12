@@ -7,7 +7,7 @@ describe TicTacToeGame do
 
   it 'allow one move' do
     a_tic_tac_toe_game = TicTacToeGame.new
-    expect(a_tic_tac_toe_game).to_receive :advance_player
+    expect(a_tic_tac_toe_game).to receive :advance_player
     a_tic_tac_toe_game.allow_one_move
   end
 end

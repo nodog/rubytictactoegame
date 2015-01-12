@@ -13,63 +13,29 @@ class RuleBasedPlayer
   def choose_move(board)
     open_positions = PREFERRED_ORDER & board.all_open_positions
     puts "Considering the following positions #{open_positions}."
+
+    move = nil
     
     if board.empty_board?
       puts "Random move for #{@mark}."
-      return open_positions.sample 
+      move = open_positions.sample 
     end
 
-    # can I win
-    move = choose_winning_move_if_available(open_positions, board)
-    return move unless move.nil?
+    move = move \
+        || choose_winning_move_if_available(open_positions, board) \
+        || prevent_winning_move_with_guaranteed_win(open_positions, board) \
+        || prevent_winning_move_with_probable_win(open_positions, board) \
+        || prevent_winning_move_with_possible_win(open_positions, board) \
+        || prevent_winning_move_if_necessary(open_positions, board) \
+        || choose_guaranteed_winning_move(open_positions, board) \
+        || choose_guaranteed_winning_move(open_positions, board) \
+        || choose_probable_winning_move(open_positions, board) \
+        || prevent_probable_winning_move(open_positions, board) \
+        || choose_possible_winning_move(open_positions, board) \
+        || open_positions.sample
 
-    # can I prevent a win while creating a guaranteed win 
-    move = prevent_winning_move_with_guaranteed_win(open_positions, board)
-    return move unless move.nil?
-    
-    # something here to prefer the opposite corner if first move is in a corner?
-    # the current algorithm fails without this
-    
-    # can I prevent a guaranteed win (does this need to be there?)
-    
-    # can I prevent a win while creating a probable win 
-    move = prevent_winning_move_with_probable_win(open_positions, board)
-    return move unless move.nil?
-    
-    # can I prevent a win while creating a possible win 
-    move = prevent_winning_move_with_possible_win(open_positions, board)
-    return move unless move.nil?
-    
-    # can I prevent a win at all
-    move = prevent_winning_move_if_necessary(open_positions, board)
-    return move unless move.nil?
-    
-    # can I set up a guaranteed win (two places to go next time)
-    move = choose_guaranteed_winning_move(open_positions, board)
-    return move unless move.nil?
-    
-    # can I set up a guaranteed win (two places to go next time)
-    move = choose_guaranteed_winning_move(open_positions, board)
-    return move unless move.nil?
+    return move
 
-    # can I line up two in a row with an empty space?
-    move = choose_probable_winning_move(open_positions, board)
-    return move unless move.nil?
-
-    # can I prevent a probable vin
-    move = prevent_probable_winning_move(open_positions, board)
-    return move unless move.nil?
-
-    # can I create a possible win (one mark with two empty spaces)
-    move = choose_possible_winning_move(open_positions, board)
-    return move unless move.nil?
-
-    # can I prevent a possible win
-    # this is the same as creating a possible win
-    
-    # can I move at all
-    # choose random open position
-    open_positions[rand(open_positions.length)]
   end
 
   def choose_winning_move_if_available(open_positions, board)
