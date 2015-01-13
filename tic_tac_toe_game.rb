@@ -12,6 +12,23 @@ class TicTacToeGame
 
   WINNING_COMBOS = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
 
+# suggestions from Adrien - 
+# THIS - to get defaults in  
+#   class gamething
+# 
+#     def self.defaults
+#       gamething.new(humanplayer.new, blaplayer.new)
+#     end
+# 
+# 
+#     def initialize(x, y)
+#       @x = x
+#     end
+#   end
+#
+# GameThing.defaults
+
+# AND THIS  should have whatever values as arguments so I can test it
   def initialize
     @board = Board.new
     puts @board.pretty_board
