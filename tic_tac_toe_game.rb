@@ -27,9 +27,13 @@ class TicTacToeGame
 #   end
 #
 # GameThing.defaults
+  
+  def self.defaults
+    TicTacToeGame.new(Board.new, HumanPlayer.new('X'), RuleBasedPlayer.new('O'))
+  end
 
 # AND THIS  should have whatever values as arguments so I can test it
-  def initialize
+  def initialize(board, player_x, player_o) 
     @board = Board.new
     puts @board.pretty_board
     @player_x = HumanPlayer.new('X')
@@ -86,6 +90,6 @@ end
 
 # === main ===============================
 if __FILE__ == $0
-  tttg = TicTacToeGame.new
+  tttg = TicTacToeGame.defaults
   tttg.play_game
 end
