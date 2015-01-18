@@ -34,10 +34,10 @@ class TicTacToeGame
 
 # AND THIS  should have whatever values as arguments so I can test it
   def initialize(board, player_x, player_o) 
-    @board = Board.new
+    @board = board
     puts @board.pretty_board
-    @player_x = HumanPlayer.new('X')
-    @player_o = RuleBasedPlayer.new('O')
+    @player_x = player_x
+    @player_o = player_o
     @players = [@player_x, @player_o]
     @current_player = @player_x
     # winning combos 
