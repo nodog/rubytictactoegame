@@ -1,4 +1,4 @@
-require_relative '../../tic_tac_toe_game/rule_based_player'
+require 'tic_tac_toe_game/rule_based_player'
 
 describe RuleBasedPlayer do
 

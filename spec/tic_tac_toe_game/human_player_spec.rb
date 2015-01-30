@@ -1,4 +1,4 @@
-require_relative '../../tic_tac_toe_game/human_player'
+require 'tic_tac_toe_game/human_player'
 
 describe HumanPlayer do
 

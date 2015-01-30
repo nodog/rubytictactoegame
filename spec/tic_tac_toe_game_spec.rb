@@ -1,8 +1,9 @@
-require_relative '../tic_tac_toe_game'
+require 'tic_tac_toe_game'
 
 describe TicTacToeGame do
   it 'doesn\'t catch fire when you create an instance' do
     expect(TicTacToeGame.defaults).to_not eq(nil)
+    puts "described_class #{described_class}"
   end
 
   it 'allows one move' do

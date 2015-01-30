@@ -1,4 +1,4 @@
-require_relative '../../tic_tac_toe_game/board'
+require 'tic_tac_toe_game/board'
 
 describe Board do
   
