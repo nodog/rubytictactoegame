@@ -37,8 +37,12 @@ class Board
     @board_state[position] = EMPTY_SPACE
   end
 
+  def moves_already_made()
+    9 - board_state.chars.to_a.count(EMPTY_SPACE)
+  end
+
   def empty_board?()
-    9 == board_state.chars.to_a.count('-')
+    0 == moves_already_made
   end
 
   def all_open_positions

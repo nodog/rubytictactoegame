@@ -6,13 +6,18 @@ require_relative 'tic_tac_toe_game'
 require_relative 'tic_tac_toe_game/board'
 #----------------------------------------
 class GameExplorer
+
+  PLAYER_1_MARK = 'X'
+  PLAYER_2_MARK = 'O'
+ 
   
   def catalog(filename)
     @count = 0
     @hash_of_states = {}
-    @base_mark = 'X'
+    
     a_board = Board.new
     generate_all_board_states(a_board)
+    evaluate_all_board_states(a_board)
     begin
       file = File.open(filename, "w")
       file.write(YAML.dump(@hash_of_states))
@@ -26,8 +31,8 @@ class GameExplorer
   def generate_all_board_states(a_board)
 
     # generate a hash with board states as keys in order to list scores (eventually)
-    mark_1 = @base_mark
-    mark_2 = 'O'
+    mark_1 = PLAYER_1_MARK
+    mark_2 = PLAYER_2_MARK
 
     generate_board_state_tree(a_board, mark_1, mark_2)
     puts "#{@count} board states"
@@ -41,6 +46,7 @@ class GameExplorer
     @count += 1
     puts a_board.string_draw
     @hash_of_states[a_board.string_draw.to_sym] = {}
+    @hash_of_states[a_board.string_draw.to_sym][:move_value] = []
 
     # end state 
     winner = TicTacToeGame.is_finished(a_board.board_state)
@@ -58,7 +64,6 @@ class GameExplorer
     end
 
     # go through all open positions for this mark
-
     new_board = Board.new(a_board.board_state)
     new_board.all_open_positions.each do |position|
       new_board.add_mark(mark_1, position)
@@ -66,6 +71,34 @@ class GameExplorer
       new_board.remove_mark(position)
     end
 
+  end
+
+  def evaluate_all_board_states(a_board)
+    if @hash_of_states[a_board.string_draw.to_sym][:winner]
+      return @hash_of_states[a_board.string_draw.to_sym][:score]
+    end
+    value_accum = 0
+
+    # go through all open positions for this mark
+    new_board = Board.new(a_board.board_state)
+    new_board.all_open_positions.each do |position|
+      # add a new mark to a board
+      new_board.add_mark(mark_for_this_turn(new_board), position)
+      # generate the value of moving in this position
+      position_value = evaluate_all_board_states(new_board)
+      # store the value of moving in this position in an array
+      @hash_of_states[new_board.string_draw.to_sym][:move_value][position] = position_value
+      # accumulate for the entire set of open moves
+      value_accum += position_value
+      # remove the temporary mark from the board
+      new_board.remove_mark(position)
+    end
+    # return the accumulation for all open positions
+    value_accum
+  end
+
+  def mark_for_this_turn(a_board)
+    a_board.moves_already_made().even? ? PLAYER_1_MARK : PLAYER_2_MARK
   end
 
 end
