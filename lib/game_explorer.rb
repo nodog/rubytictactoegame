@@ -36,7 +36,7 @@ class GameExplorer
 
     generate_board_state_tree(a_board, mark_1, mark_2)
     puts "#{@count} board states"
-    puts "Note that X-------- and O------- are currently considered 2 board states."
+    puts "Note that XO------- and OX------ are currently considered 2 board states."
 
   end
 
@@ -52,7 +52,7 @@ class GameExplorer
     winner = TicTacToeGame.is_finished(a_board.board_state)
     if winner
       @hash_of_states[a_board.string_draw.to_sym][:winner] = winner[0]
-      if winner == @base_mark
+      if PLAYER_1_MARK == winner
         score = 1
       elsif 'draw' == winner
         score = 0
@@ -74,24 +74,27 @@ class GameExplorer
   end
 
   def evaluate_all_board_states(a_board)
+    # if this board is a winner, just return the score
     if @hash_of_states[a_board.string_draw.to_sym][:winner]
       return @hash_of_states[a_board.string_draw.to_sym][:score]
     end
+
     value_accum = 0
 
-    # go through all open positions for this mark
+    # make a copy of the board to use and mess with
     new_board = Board.new(a_board.board_state)
+    # go through all open positions for this board
     new_board.all_open_positions.each do |position|
       # add a new mark to a board
       new_board.add_mark(mark_for_this_turn(new_board), position)
       # generate the value of moving in this position
       position_value = evaluate_all_board_states(new_board)
-      # store the value of moving in this position in an array
-      @hash_of_states[new_board.string_draw.to_sym][:move_value][position] = position_value
       # accumulate for the entire set of open moves
       value_accum += position_value
       # remove the temporary mark from the board
       new_board.remove_mark(position)
+      # store the value of moving in this position in an array
+      @hash_of_states[new_board.string_draw.to_sym][:move_value][position] = position_value
     end
     # return the accumulation for all open positions
     value_accum
