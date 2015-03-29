@@ -6,6 +6,8 @@
 require_relative 'tic_tac_toe_game/board'
 require_relative 'tic_tac_toe_game/rule_based_player'
 require_relative 'tic_tac_toe_game/human_player'
+require_relative 'tic_tac_toe_game/random_player'
+require_relative 'tic_tac_toe_game/minmax_player'
 
 #----------------------------------------
 class TicTacToeGame
@@ -29,7 +31,7 @@ class TicTacToeGame
 # GameThing.defaults
   
   def self.defaults
-    TicTacToeGame.new(Board.new, HumanPlayer.new('X'), RuleBasedPlayer.new('O'))
+    TicTacToeGame.new(Board.new, RuleBasedPlayer.new('X'), MinmaxPlayer.new('O'))
   end
 
 # AND THIS  should have whatever values as arguments so I can test it
