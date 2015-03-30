@@ -13,6 +13,9 @@ require_relative 'tic_tac_toe_game/minmax_player'
 class TicTacToeGame
 
   WINNING_COMBOS = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
+  PLAYER_1_MARK = 'X'
+  PLAYER_2_MARK = 'O'
+
 
 # suggestions from Adrien - 
 # THIS - to get defaults in  
@@ -31,7 +34,7 @@ class TicTacToeGame
 # GameThing.defaults
   
   def self.defaults
-    TicTacToeGame.new(Board.new, RuleBasedPlayer.new('X'), RuleBasedPlayer.new('O'))
+    TicTacToeGame.new(Board.new, MinmaxPlayer.new(PLAYER_1_MARK), MinmaxPlayer.new(PLAYER_2_MARK))
   end
 
 # AND THIS  should have whatever values as arguments so I can test it

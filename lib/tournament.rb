@@ -15,7 +15,8 @@ class Tournament
       puts "TOURNAMENT GAME #{i}"
       puts "--------------------"
       #ttt_game = TicTacToeGame.new(Board.new, RuleBasedPlayer.new('X'), RuleBasedPlayer.new('O'))
-      ttt_game = TicTacToeGame.new(Board.new, RandomPlayer.new('X'), RuleBasedPlayer.new('O'))
+      #ttt_game = TicTacToeGame.new(Board.new, RandomPlayer.new('X'), RuleBasedPlayer.new('O'))
+      ttt_game = TicTacToeGame.new(Board.new, MinmaxPlayer.new('X'), RandomPlayer.new('O'))
       game_message = ttt_game.play_game
       puts
       winners << game_message[:winner]
