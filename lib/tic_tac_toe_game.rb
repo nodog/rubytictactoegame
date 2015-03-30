@@ -31,7 +31,7 @@ class TicTacToeGame
 # GameThing.defaults
   
   def self.defaults
-    TicTacToeGame.new(Board.new, RuleBasedPlayer.new('X'), MinmaxPlayer.new('O'))
+    TicTacToeGame.new(Board.new, RuleBasedPlayer.new('X'), RuleBasedPlayer.new('O'))
   end
 
 # AND THIS  should have whatever values as arguments so I can test it
@@ -53,6 +53,8 @@ class TicTacToeGame
       allow_one_move
     end
     puts "Winner is #{winner}!!!"
+
+    game_message = {:winner => winner}
   end
 
   def allow_one_move
